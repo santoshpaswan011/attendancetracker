@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Attendance Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: aqua;
+      margin: 0;
+      padding: 0;
+    }
+
+    
+    header{
+      background-color:black;
+      color: white;
+      text-align: center;
+      padding: 15px 0;
+      position: relative;
+    }
+    footer{
+      background-color: #007bff;
+      color: white;
+      text-align: center;
+      padding: 15px 15px;
+      position: relative;
+      margin-bottom:auto;
+      bottom: 0;
+     
+    }
+
+    .container {
+      background: pink;
+      padding: 30px;
+      margin: 40px auto;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      width: 90%;
+      max-width: 400px;
+      text-align: center;
+    }
+
+    input {
+      width: 80%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    button {
+      padding: 10px 20px;
+      border: none;
+      background: #007bff;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #0056b3;
+    }
+
+    .result {
+      margin-top: 15px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1> Attendance Calculator</h1>
+  </header>
+
+  <div class="container">
+    <h2>Check Your Attendance</h2>
+    <input type="number" id="classesAttended" placeholder="Classes Attended" />
+    <input type="number" id="totalClasses" placeholder="Total Classes" />
+    <button onclick="calculateAttendance()">Calculate</button>
+    <div class="result" id="result"></div>
+  </div>
+
+  
+  <script>
+    function calculateAttendance() {
+      const attended = parseFloat(document.getElementById("classesAttended").value);
+      const total = parseFloat(document.getElementById("totalClasses").value);
+      const result = document.getElementById("result");
+
+      if (isNaN(attended) || isNaN(total) || total === 0 || attended < 0 || total < 0) {
+        result.textContent = "Please enter valid non-negative numbers.";
+        result.style.color = "red";
+        return;
+      }
+
+      const percentage = (attended / total) * 100;
+      const rounded = percentage.toFixed(2);
+
+      if (percentage >= 75) {
+        result.textContent =` Your attendance is ${rounded}%. You'r eligible for Your Exam`;
+        result.style.color = "green";
+      } else {
+        const needed = Math.ceil((0.75 * total - attended) / 0.25);
+        result.textContent = `Your attendance is ${rounded}%. You need to attend next ${needed} classes to reach 75%.`;
+        result.style.color = "red";
+      }
+    }
+  </script>
+
+</body>
+</html>
